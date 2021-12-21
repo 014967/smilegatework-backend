@@ -18,7 +18,10 @@ public interface UserService {
     Role saveRole(Role role);
     List<User> getUsers();
     void deleteUser(int UserId) throws IllegalAccessException;
+
+    List<User> deleteUserByEmail(DeleteUser deleteUser) throws IllegalAccessException;
+
     User updateRoletoUser(String email, String name);
 
-    void deleteUserByEmail(HttpServletRequest request , DeleteUser deleteUser) throws IllegalAccessException;
+
 }

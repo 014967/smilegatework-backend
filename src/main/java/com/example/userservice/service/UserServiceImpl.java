@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -122,12 +121,13 @@ public  class UserServiceImpl implements UserService ,UserDetailsService {
     }
 
     @Override
-    public void deleteUserByEmail(HttpServletRequest request , DeleteUser deleteUser) throws IllegalAccessException {
+    public List<User> deleteUserByEmail(DeleteUser deleteUser) throws IllegalAccessException {
+
+
 
         for(int i=0; i<deleteUser.getUserList().size();i++)
         {
-            //User user = deleteUser.getUserList().get(i);
-            //log.info(String.valueOf(user));
+
             if (deleteUser.getUserList().get(i) != null)
             {
                 User user = userRepo.findByEmail(deleteUser.getUserList().get(i).getEmail());
@@ -137,9 +137,8 @@ public  class UserServiceImpl implements UserService ,UserDetailsService {
             }
 
 
-
-
         }
+        return userRepo.findAll();
 
 
 

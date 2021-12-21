@@ -92,18 +92,22 @@ public class UserController {
         userService.deleteUser(UserId);
     }
 
-//    @DeleteMapping(path="/user/delete/{userEmail}")
-//    public void deleteUserByEmail(@PathVariable("userEmail") String email) throws  IllegalAccessException{
-//        userService.deleteUserByEmail(email);
-//    }
+
 
 
     @DeleteMapping("/user/delete")
-    public void deleteUserByEmail(HttpServletRequest request ,HttpServletResponse response, @RequestBody DeleteUser deleteUser) throws IllegalAccessException {
+    public ResponseEntity<List<User>> deleteUserByEmail(@RequestBody DeleteUser deleteUser) throws IllegalAccessException {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/delete").toUriString());
-        userService.deleteUserByEmail(request, deleteUser);
+
+        return ResponseEntity.created(uri).body(userService.deleteUserByEmail(deleteUser));
     }
 
+//
+//    @DeleteMapping("/user/delete")
+//    public ResponseEntity deleteUserByEmail(@RequestBody DeleteUser deleteUser) throws IllegalAccessException {
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/delete").toUriString());
+//        userService.deleteUserByEmail(deleteUser);
+//    }
     @PutMapping("/user/updateRole")
     public ResponseEntity<User> updateRoletoUser(@RequestBody RoleToUserForm roleToUserForm) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/updateRole").toUriString());
